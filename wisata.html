@@ -1,0 +1,79 @@
+<div data-role="page" id="kuliner">
+        	<div data-theme="a" data-role="header">
+				<h1><img src="images/icon_jogjanan.png" width="16" height="16" class="logo" alt="icon">&nbsp; Jogjanan</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li>
+                            <a href="index2.html" id="mainmenu" data-transition="slide" data-theme="" data-icon="">
+                                Beranda
+                            </a>
+                        </li>
+                        <li>
+                            <a href="wisata.html" id="wisatamenu" data-transition="slide" data-theme="" data-icon="" class="ui-btn-active">
+                                Wisata
+                            </a>
+                        </li>
+                        <li>
+                            <a href="kuliner.html" id="kulinermenu" data-transition="slide" data-theme="" data-icon="">
+                                Kuliner
+                            </a>
+                        </li>
+                        <li>
+                            <a href="event.html" id="eventmenu" data-transition="slide" data-theme="" data-icon="">
+                                Event
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr/>
+         <div data-role="content" >
+		
+                <ul data-role="listview" data-divider-theme="a" data-inset="true">
+                    <li data-role="list-divider" role="heading">
+                        Wisata Favorit
+                    </li>
+                    <div id="listwisata">
+                    <script>
+							wisata.init("http://www.jogjanan.com/service/android/spot_wis_terfav.php");
+					</script>
+                    	                   </div>
+                                    </ul>
+                <ul data-role="listview" data-dividertheme="a" data-inset="true">
+                	<li data-role="list-divider" role="heading">
+                    	Wisata Populer
+                    </li>
+                    <div id="listwisatapop">
+                    	<script>
+							wisatapop.init("http://www.jogjanan.com/service/android/spot_wis_terpop.php");
+						</script>
+                    </div>
+                </ul>
+				<ul data-role="listview" data-dividertheme="a" data-inset="true">
+                	<li data-role="list-divider" role="heading">
+                    	Wisata Baru
+                    </li>
+                    <div id="listwisatabaru">
+                    	<script>
+							wisatabaru.init("http://jogjanan.com/service/android/spot_wis_terbaru.php");
+						</script>
+                    </div>
+                </ul>
+				<ul data-role="listview" data-dividertheme="a" data-inset="true">
+                	<li data-role="list-divider" role="heading">
+                    	Komentar Terbanyak
+                    </li>
+                    <div id="listwisatakom">
+                    	<script>
+							wisatakom.init("http://jogjanan.com/service/android/spot_wis_terjumkomen.php");
+						</script>
+                    </div>
+                </ul>
+
+            </div>
+            <div data-theme="a" data-role="footer" data-position="fixed">
+                <h3>
+                    Footer
+                </h3>
+            </div>
+        </div>
