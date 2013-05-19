@@ -752,3 +752,80 @@
         } // end: randomize()
         
     }
+	
+	var  searchpage = {
+        //general settings
+        xml: 'data.xml?' + Math.random(0,1), //solve ie weird caching issue
+        display: '10', //number of items to be displayed
+        random: true, //display randomly {true|false}
+        //set the id/class to insert XML data
+		appendTo: '#listsearch',
+		
+        init: function (url) {
+        	
+            //jQuery ajax call to retrieve the XML file
+            $.ajax({
+                type: "GET",
+             	url: url,
+                datatype:"application/xml",             
+                success: this.parseXML
+             });    
+        
+        }, // end: init()
+        
+        parseXML: function (xml) {
+        	
+            //Grab every single ITEM tags in the XML file
+            var data = $('spot', xml).get();
+            //Allow user to toggle display randomly or vice versa
+            var list = (this.random) ? this.randomize(data) : data;
+            var i = 1;
+            
+            //Loop through all the ITEMs
+            $(list).each(function () {
+                
+                //Parse data and embed it with HTML
+                searchpage.insertHTML($(this));            
+                //If it reached user predefined total of display item, stop the loop, job done.
+                if (i == searchpage.display) return false;
+                i++;
+            });
+        
+        }, // end: parseXML()
+        insertHTML: function (item) {
+            //retrieve each of the data field from ITEM
+			var spot_id = item.find('spot_id').text();
+            var spot_name = item.find('spot_name').text();
+            var spot_thumb = item.find('spot_thumb').text();
+            var spot_rating = item.find('spot_rating').text();
+            var spot_hit = item.find('spot_hit').text();
+			var spot_jumkomen = item.find('spot_jumkomen').text();
+			var spot_abstract = item.find('spot_abstract').text();
+			var spot_address = item.find('spot_address').text();
+            var html;
+            
+            //Embed them into HTML code
+			html = '<li class="ui-btn ui-btn-up-c ui-btn-icon-right ui-li-has-arrow ui-li ui-li-has-thumb" data-theme="c" data-iconpos="right" data-icon="arrow-r" data-wrapperels="div" data-iconshadow="true" data-shadow="false" data-corners="false">';
+			html += '<div class="ui-btn-inner ui-li"><div class="ui-btn-text">';
+            html += '<a class="judulspot ui-link-inherit" href="http://jogjanan.com/touch/detail.php?spot_id='+spot_id+'">';
+            html += '<img class="ui-li-thumb" src="http://www.jogjanan.com/' + spot_thumb + '" alt="' + spot_name + '" />';
+            html += '<h3 class="ui-li-heading"> '+ spot_name +'</h3>';
+            html += '<p class="ui-li-desc"> <i> Rating : '+spot_rating+', Dilihat: '+spot_hit+', Komentar: '+spot_jumkomen+'</i></p>';
+            html += '<p class="ui-li-desc"> '+spot_abstract+'</p>';
+			html += '<p class="ui-li-desc"> Alamat : '+spot_address+' </p> </a>';
+			html += '</div><span class="ui-icon ui-icon-arrow-r ui-icon-shadow">&nbsp;</span></div>';
+			html+= '</li>';
+            
+            //Append it to user predefined element
+            $(html).appendTo(this.appendTo);
+            
+        }, // end: insertHTML()
+        randomize: function(arr) {
+            
+            //randomize the data
+            //Credit to JSFromHell http://jsfromhell.com/array/shuffle
+         for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+             return arr;
+        } // end: random
+        
+    }
